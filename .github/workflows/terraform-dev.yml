@@ -8,7 +8,8 @@ on:
       - "**.tf"
       - "modules/**"
       - "environments/dev.tfvars"
-      - "**.sh"      
+      - "**.sh"
+      - ".github/workflows/**"    
 
 env:
   AWS_REGION: ap-south-1
