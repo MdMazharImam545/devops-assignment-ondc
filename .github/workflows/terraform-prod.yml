@@ -1,0 +1,93 @@
+name: Terraform PROD Deployment
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  AWS_REGION: ap-south-1
+
+jobs:
+  terraform-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+####################################
+# Setup Terraform
+####################################
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+####################################
+# Format Check
+####################################
+
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+
+####################################
+# Init without backend
+####################################
+
+      - name: Terraform Init
+        run: terraform init -backend=false
+
+####################################
+# Validate
+####################################
+
+      - name: Terraform Validate
+        run: terraform validate
+
+####################################
+# TFLint
+####################################
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Run TFLint
+        run: |
+          tflint --init
+          tflint
+
+####################################
+# Checkov Security Scan
+####################################
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          quiet: true
+          framework: terraform
+
+####################################
+# AWS Authentication
+####################################
+
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+####################################
+# Terraform Deploy
+####################################
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -var-file="environments/prod.tfvars"
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -var-file="environments/prod.tfvars"
