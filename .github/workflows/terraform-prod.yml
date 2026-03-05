@@ -7,6 +7,7 @@ on:
 
 env:
   AWS_REGION: ap-south-1
+  WORKSPACE: prod
 
 jobs:
   terraform-prod:
@@ -35,6 +36,10 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
+
+      - name: Select Workspace
+        run: |
+          terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
 
       - name: Terraform Plan
         run: terraform plan -var-file="environments/prod.tfvars"
