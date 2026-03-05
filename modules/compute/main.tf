@@ -34,6 +34,8 @@ resource "aws_launch_template" "this" {
     }
   }
 
+  security_group_names = [ var.ec2_sg_id ]
+
   user_data = filebase64("${path.root}/userdata.sh")
 }
 

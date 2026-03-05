@@ -42,6 +42,7 @@ module "compute" {
   desired_capacity   = var.desired_capacity
   min_size           = var.min_size
   max_size           = var.max_size
+  ec2_sg_id          = module.security.ec2_sg_id
   tags               = var.additional_tags
 }
 

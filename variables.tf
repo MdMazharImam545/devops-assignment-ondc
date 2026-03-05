@@ -6,6 +6,7 @@ variable "instance_type" {}
 variable "desired_capacity" {}
 variable "min_size" {}
 variable "max_size" {}
+variable "ec2_sg_id" {}
 variable "email_endpoint" {}
 variable "enable_waf" {}
 variable "app_port" {}
