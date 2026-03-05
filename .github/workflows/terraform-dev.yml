@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - dev
+    paths:
+      - "**.tf"
+      - "modules/**"
+      - "environments/dev.tfvars"
+      - "**.sh"      
 
 env:
   AWS_REGION: ap-south-1

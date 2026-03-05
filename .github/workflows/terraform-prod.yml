@@ -4,7 +4,9 @@ on:
   push:
     tags:
       - "v*"
-
+    branches-ignore:
+      - "**"
+      
 env:
   AWS_REGION: ap-south-1
   WORKSPACE: prod
