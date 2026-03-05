@@ -1,0 +1,11 @@
+variable "region" {}
+variable "vpc_cidr" {}
+variable "availability_zones" {}
+variable "additional_tags" {}
+variable "instance_type" {}
+variable "desired_capacity" {}
+variable "min_size" {}
+variable "max_size" {}
+variable "email_endpoint" {}
+variable "enable_waf" {}
+variable "app_port" {}
