@@ -5,6 +5,7 @@ on:
     branches:
       - dev
 
+
 env:
   AWS_REGION: ap-south-1
   WORKSPACE: dev

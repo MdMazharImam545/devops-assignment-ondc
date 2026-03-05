@@ -34,7 +34,11 @@ resource "aws_launch_template" "this" {
     }
   }
 
-  security_group_names = [ var.ec2_sg_id ]
+  vpc_security_group_ids = [ var.ec2_sg_id ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   user_data = filebase64("${path.root}/userdata.sh")
 }
