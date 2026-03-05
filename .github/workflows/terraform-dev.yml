@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - dev
-    # paths:
-    #   - "**.tf"
-    #   - "modules/**"
-    #   - "environments/dev.tfvars"
-    #   - "**.sh"
-    #   - ".github/workflows/**"    
 
 env:
   AWS_REGION: ap-south-1
