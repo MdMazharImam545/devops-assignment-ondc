@@ -3,7 +3,7 @@ data "aws_elb_service_account" "main" {}
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "alb_logs" {
-  bucket = "${terraform.workspace}-alb-logs-${data.aws_caller_identity.current.account_id}"
+  bucket        = "${terraform.workspace}-alb-logs-${data.aws_caller_identity.current.account_id}"
   force_destroy = true
 
   tags = merge(

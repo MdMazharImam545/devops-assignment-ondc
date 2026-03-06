@@ -71,11 +71,17 @@ Terraform workspaces represent environments:
 
 ### 1. Bootstrap Backend
 
-cd bootstrap terraform init terraform apply
+```
+cd bootstrap
+terraform init
+terraform apply
+```
 
 ### 2. Initialize Infrastructure
 
+```
 terraform init
+```
 
 ### 3. Create Workspace
 
@@ -98,23 +104,16 @@ terraform apply -var-file="environments/prod.tfvars"
 
 ## CI/CD -- GitHub Actions
 
-Pipeline includes:
+We utilize a **Multi-Branch Pipeline** strategy to ensure code quality and environment isolation.
 
--   terraform fmt -check
--   terraform validate
--   tflint
 
-------------------------------------------------------------------------
 
-## Unit Testing Strategy
-
-Validation & Security Testing:
-
-```
-terraform validate
-terraform plan
-checkov -d .
-```
+### Pipeline Flow:
+1.  **Static Analysis:** Runs `terraform fmt` and `terraform validate` on every push.
+2.  **Environment Isolation:** Uses Terraform **Workspaces** to separate `dev` and `prod` state files.
+3.  **Branch Logic:**
+    * **Dev Branch:** Automatic `plan` and `apply` for rapid iteration.
+    * **Prod (Tags):** Deployment to production is triggered only when a version tag (`v*`) is pushed, ensuring a controlled release cycle.
 
 ------------------------------------------------------------------------
 
@@ -140,10 +139,26 @@ terraform destroy
 Optional backend:
 
 ```
-cd bootstrap terraform destroy
+cd bootstrap
+terraform destroy
 ```
 
 ------------------------------------------------------------------------
+
+## Proofs Successfully Deployed 
+
+### ALB Response
+
+<img src="./diagrams/alb-response.png">
+
+### Health-Check Passed 
+
+<img src="./diagrams/Health-check-passed.png">
+
+### GitHub Action Pipeline Ran Successfully
+
+<img src="./diagrams/terraform-dev pipeline.png">
+
 
 ## Ops Notes
 
@@ -154,13 +169,6 @@ cd bootstrap terraform destroy
 -   ALB connection draining
 -   Rolling updates
 -   Blue/Green strategy
-
-### Secrets & Rotation
-
--   AWS Secrets Manager
--   SSM Parameter Store (SecureString)
--   IAM role-based retrieval
--   Automatic rotation via Lambda
 
 ### Monitoring
 

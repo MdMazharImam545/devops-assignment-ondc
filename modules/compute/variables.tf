@@ -6,4 +6,5 @@ variable "target_group_arn" {}
 variable "desired_capacity" {}
 variable "min_size" {}
 variable "max_size" {}
+variable "autoscaling_sg_id" {}
 variable "tags" {}
