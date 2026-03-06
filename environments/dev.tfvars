@@ -9,6 +9,6 @@ email_endpoint     = "mdimam25m@gmail.com"
 enable_waf         = true
 app_port           = 80
 additional_tags = {
-  env       = "dev" 
+  env       = "dev"
   ManagedBy = "Terraform"
 }

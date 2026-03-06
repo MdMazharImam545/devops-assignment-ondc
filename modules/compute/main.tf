@@ -34,7 +34,7 @@ resource "aws_launch_template" "this" {
     }
   }
 
-  vpc_security_group_ids = [ var.ec2_sg_id ]
+  vpc_security_group_ids = [var.autoscaling_sg_id]
 
   lifecycle {
     create_before_destroy = true

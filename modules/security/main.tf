@@ -27,7 +27,7 @@ resource "aws_security_group" "alb_sg" {
 }
 
 ### AWS Security Group for EC2
-resource "aws_security_group" "ec2_sg" {
+resource "aws_security_group" "autoscaling_sg" {
   vpc_id = var.vpc_id
   ingress {
     from_port       = var.app_port
@@ -43,7 +43,7 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   tags = merge(
-    { Name = "${terraform.workspace}-web-ec2-sg" },
+    { Name = "${terraform.workspace}-web-autoscaling-sg" },
     var.tags
   )
 }

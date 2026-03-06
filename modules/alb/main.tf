@@ -18,9 +18,9 @@ resource "aws_lb" "web_alb" {
 }
 
 resource "aws_wafv2_web_acl_association" "alb_waf" {
-  count          = var.enable_waf ? 1 : 0
-  resource_arn   = aws_lb.web_alb.arn
-  web_acl_arn    = var.waf_acl_arn
+  count        = var.enable_waf ? 1 : 0
+  resource_arn = aws_lb.web_alb.arn
+  web_acl_arn  = var.waf_acl_arn
 }
 
 resource "aws_lb_target_group" "web_tg" {
@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "web_tg" {
   health_check {
     enabled             = true
     path                = "/"
-    port                = "traffic-port" 
+    port                = "traffic-port"
     protocol            = "HTTP"
     interval            = 30
     timeout             = 5

@@ -26,7 +26,7 @@ resource "aws_wafv2_web_acl" "this" {
     }
   }
 
-  # Rule 2: Rate Limiting (Crucial for HTTP workloads)
+  # Rule 2: Rate Limiting
   # Blocks IPs that send more than 1000 requests in a 5-minute window
   rule {
     name     = "HttpRateLimit"
@@ -54,7 +54,7 @@ resource "aws_wafv2_web_acl" "this" {
   }
 
   tags = merge(
-    {Name = "${terraform.workspace}-web-acl" },
+    { Name = "${terraform.workspace}-web-acl" },
     var.tags
   )
 }
