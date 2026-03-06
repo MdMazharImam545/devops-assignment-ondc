@@ -39,8 +39,12 @@ jobs:
 
       - name: Terraform Destroy DEV
         if: github.event.inputs.environment == 'dev'
-        run: terraform destroy -auto-approve -var-file="environments/dev.tfvars"
+        run: | 
+          terraform workspace select dev || terraform workspace new dev
+          terraform destroy -auto-approve -var-file="environments/dev.tfvars"
 
       - name: Terraform Destroy PROD
         if: github.event.inputs.environment == 'prod'
-        run: terraform destroy -auto-approve -var-file="environments/prod.tfvars"
+        run: | 
+          terraform workspace select prod || terraform workspace new prod
+          terraform destroy -auto-approve -var-file="environments/prod.tfvars"
